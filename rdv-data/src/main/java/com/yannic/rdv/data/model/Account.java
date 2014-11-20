@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -15,16 +16,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.yannic.rdv.data.model.association.CredentialPersonAssociation;
-import com.yannic.rdv.data.model.type.CredentialMethod;
+import com.yannic.rdv.data.model.association.AccountPersonAssociation;
+import com.yannic.rdv.data.model.type.LoginMethod;
 
 @Entity
-@Table(name = "credentials")
-public class Credential {
+@Table(indexes = {@Index(columnList = "api_key", name="api_key_index", unique=true)}, name = "accounts")
+public class Account {
 	
 	@Id
-	@Column(name = "credential_id")
-	private long credentialId;
+	@Column(name = "account_id")
+	private long accountId;
 	
 	private String username;
 	
@@ -36,26 +37,26 @@ public class Credential {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastLoginDate;
 	
-	@Column(name = "session_key")
-	private String sessionKey;
+	@Column(name = "api_key")
+	private String apiKey;
 	
 	@Enumerated(EnumType.STRING)
-	private CredentialMethod method;
+	private LoginMethod method;
 	
 	@OneToMany
 	@JoinTable(
-		name = "credential_person",
-		joinColumns={ @JoinColumn(name="credential_id", referencedColumnName="credential_id") },
-		inverseJoinColumns={ @JoinColumn(name="credential_person_id", referencedColumnName="credential_person_id", unique=true) }
+		name = "account_person",
+		joinColumns={ @JoinColumn(name="account_id", referencedColumnName="account_id") },
+		inverseJoinColumns={ @JoinColumn(name="account_person_id", referencedColumnName="account_person_id", unique=true) }
 	)
-	private List<CredentialPersonAssociation> credentialPersonAssociations;
+	private List<AccountPersonAssociation> accountPersonAssociations;
 
-	public long getCredentialId() {
-		return credentialId;
+	public long getAccountId() {
+		return accountId;
 	}
 
-	public void setCredentialId(long credentialId) {
-		this.credentialId = credentialId;
+	public void setAccountId(long accountId) {
+		this.accountId = accountId;
 	}
 
 	public String getUsername() {
@@ -90,29 +91,31 @@ public class Credential {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public String getSessionKey() {
-		return sessionKey;
+	public String getApiKey() {
+		return apiKey;
 	}
 
-	public void setSessionKey(String sessionKey) {
-		this.sessionKey = sessionKey;
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
 	}
 
-	public CredentialMethod getMethod() {
+	public LoginMethod getMethod() {
 		return method;
 	}
 
-	public void setMethod(CredentialMethod method) {
+	public void setMethod(LoginMethod method) {
 		this.method = method;
 	}
 
-	public List<CredentialPersonAssociation> getCredentialPersonAssociations() {
-		return credentialPersonAssociations;
+	public List<AccountPersonAssociation> getAccountPersonAssociations() {
+		return accountPersonAssociations;
 	}
 
-	public void setCredentialPersonAssociations(
-			List<CredentialPersonAssociation> credentialPersonAssociations) {
-		this.credentialPersonAssociations = credentialPersonAssociations;
+	public void setAccountPersonAssociations(
+			List<AccountPersonAssociation> accountPersonAssociations) {
+		this.accountPersonAssociations = accountPersonAssociations;
 	}
+
+	
 
 }

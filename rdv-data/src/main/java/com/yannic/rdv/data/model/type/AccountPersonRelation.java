@@ -1,6 +1,6 @@
 package com.yannic.rdv.data.model.type;
 
-public enum CredentialPersonRelation {
+public enum AccountPersonRelation {
 	
 	SAME,
 	CHILD,

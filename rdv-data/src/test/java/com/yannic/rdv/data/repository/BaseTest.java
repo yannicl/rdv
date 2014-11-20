@@ -29,7 +29,7 @@ public class BaseTest {
 	DataSource dataSource;
 	
 	@Autowired
-	protected CredentialRepository credentialRepository;
+	protected AccountRepository accountRepository;
 	
 	@Autowired
 	protected EventRepository eventRepository;

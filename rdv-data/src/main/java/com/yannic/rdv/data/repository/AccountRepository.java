@@ -3,9 +3,11 @@ package com.yannic.rdv.data.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import com.yannic.rdv.data.model.Organizer;
+import com.yannic.rdv.data.model.Account;
 
 @RepositoryRestResource(exported = false)
-public interface OrganizerRepository extends JpaRepository<Organizer, Long>{
+public interface AccountRepository extends JpaRepository<Account, Long>{
+	
+	Account findByApiKey(String apiKey);
 
 }

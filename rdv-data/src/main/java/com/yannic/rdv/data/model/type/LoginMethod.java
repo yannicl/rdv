@@ -1,6 +1,6 @@
 package com.yannic.rdv.data.model.type;
 
-public enum CredentialMethod {
+public enum LoginMethod {
 	
 	USERNAME_PASSWORD_MD5
 

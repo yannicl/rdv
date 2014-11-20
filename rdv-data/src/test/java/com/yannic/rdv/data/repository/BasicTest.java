@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.yannic.rdv.data.model.Credential;
+import com.yannic.rdv.data.model.Account;
 import com.yannic.rdv.data.model.Event;
 import com.yannic.rdv.data.model.Person;
 
@@ -32,8 +32,8 @@ public class BasicTest extends BaseTest {
 	}
 	
 	@Test
-	public void should_have_1_credential() {
-		Assert.assertEquals(1, credentialRepository.count());
+	public void should_have_1_account() {
+		Assert.assertEquals(1, accountRepository.count());
 	}
 	
 	@Test
@@ -46,13 +46,13 @@ public class BasicTest extends BaseTest {
 	}
 	
 	@Test
-	public void credential_should_be_linked_to_person() {
-		Credential credential = credentialRepository.findOne((long) 1);
+	public void account_should_be_linked_to_person() {
+		Account account = accountRepository.findOne((long) 1);
 		Person person = personRepository.findOne((long) 4);
 		
-		Assert.assertNotNull(credential.getCredentialPersonAssociations());
-		Assert.assertEquals(1, credential.getCredentialPersonAssociations().size());
-		Assert.assertEquals(person, credential.getCredentialPersonAssociations().get(0).getPerson());
+		Assert.assertNotNull(account.getAccountPersonAssociations());
+		Assert.assertEquals(1, account.getAccountPersonAssociations().size());
+		Assert.assertEquals(person, account.getAccountPersonAssociations().get(0).getPerson());
 	}
 	
 	
