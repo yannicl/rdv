@@ -19,8 +19,8 @@ The Rendez-Vous manager aims to manage appointment to health care professional w
 
 Technology list
 ===
-Spring-data
-JPA
-DBUnit
-Hibernate
-MySQL
+- Spring-data
+- JPA
+- DBUnit
+- Hibernate
+- MySQL
