@@ -15,7 +15,7 @@ is to explore technologies and apply them to a real business problem.
 Business problem definition
 ===
 
-The Rendez-Vous manager aims to manage appointment to health care professional working in private practise.
+The Rendez-Vous manager aims to manage appointment for health care professional working in private practise.
 
 Technology list
 ===
