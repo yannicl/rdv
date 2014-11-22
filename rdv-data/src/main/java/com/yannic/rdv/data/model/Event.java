@@ -21,7 +21,7 @@ public class Event {
 	
 	@Id
 	@Column(name = "event_id")
-	private long eventId;
+	private Long eventId;
 	
 	@Column(name = "start_date")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -48,11 +48,11 @@ public class Event {
 	@JoinColumn(name = "location_id")
 	private Location location;
 
-	public long getEventId() {
+	public Long getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(long eventId) {
+	public void setEventId(Long eventId) {
 		this.eventId = eventId;
 	}
 

@@ -13,7 +13,7 @@ public class Location {
 
 	@Id
 	@Column(name = "location_id")
-	private long locationId;
+	private Long locationId;
 
 	private String name;
 
@@ -30,11 +30,11 @@ public class Location {
 	@JoinColumn(name = "organizer_id")
 	private Organizer organizer;
 
-	public long getLocationId() {
+	public Long getLocationId() {
 		return locationId;
 	}
 
-	public void setLocationId(long locationId) {
+	public void setLocationId(Long locationId) {
 		this.locationId = locationId;
 	}
 

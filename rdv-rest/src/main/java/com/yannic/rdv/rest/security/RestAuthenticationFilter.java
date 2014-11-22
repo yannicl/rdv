@@ -56,7 +56,7 @@ public class RestAuthenticationFilter extends AbstractAuthenticationProcessingFi
 						attemptAuthentication((HttpServletRequest) req, (HttpServletResponse) res));
 			}
 		} catch (RestAccessDeniedException rade) {
-			LOG.warn("Exiting with an error cause due to RestAccessDeniedException " + rade.toString());
+			LOG.warn("Exiting with an error cause due to " + rade.toString());
 			HttpServletResponse response = (HttpServletResponse) res;
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
 			response.setStatus(rade.getAccessDeniedCause().getHttpStatusCode());

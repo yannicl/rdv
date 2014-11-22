@@ -11,14 +11,14 @@ public class Organizer {
 	
 	@Id
 	@Column(name="organizer_id")
-	private long organizerId;
+	private Long organizerId;
 	private String name;
 	private String description;
 	
-	public long getOrganizerId() {
+	public Long getOrganizerId() {
 		return organizerId;
 	}
-	public void setOrganizerId(long organizerId) {
+	public void setOrganizerId(Long organizerId) {
 		this.organizerId = organizerId;
 	}
 	public String getName() {

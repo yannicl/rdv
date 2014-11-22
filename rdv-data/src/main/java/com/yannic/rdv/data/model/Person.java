@@ -13,7 +13,7 @@ public class Person {
 	
 	@Id
 	@Column(name = "person_id")
-	private long personId;
+	private Long personId;
 	
 	@OneToOne
 	@JoinColumn(name = "organizer_id")
@@ -27,11 +27,11 @@ public class Person {
 	
 	private String code;
 
-	public long getPersonId() {
+	public Long getPersonId() {
 		return personId;
 	}
 
-	public void setPersonId(long personId) {
+	public void setPersonId(Long personId) {
 		this.personId = personId;
 	}
 
