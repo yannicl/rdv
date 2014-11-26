@@ -9,7 +9,7 @@ This project will contain several parts :
 - rdv-rest : controllers and services 
 - rdv-front : front-end consuming the rest services
 
-This project is ongoing and will probably never completely ends as is main target 
+This project is ongoing and will probably never completely ends as its main target 
 is to explore technologies and apply them to a real business problem.
 
 Business problem definition
