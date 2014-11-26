@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
 import org.junit.AfterClass;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,6 +24,7 @@ import com.yannic.rdv.data.DataTestContext;
 						   DbUnitTestExecutionListener.class })
 @TransactionConfiguration(defaultRollback=false)
 @Transactional
+@Ignore
 public class BaseTest {
 	
 	@Autowired
