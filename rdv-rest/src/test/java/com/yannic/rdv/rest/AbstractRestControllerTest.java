@@ -1,5 +1,6 @@
 package com.yannic.rdv.rest;
 
+import java.util.Collections;
 import java.util.Date;
 
 import org.junit.Before;
@@ -13,7 +14,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.yannic.rdv.data.model.Account;
 import com.yannic.rdv.data.model.Event;
+import com.yannic.rdv.data.model.Location;
+import com.yannic.rdv.data.model.Organizer;
+import com.yannic.rdv.data.model.Person;
+import com.yannic.rdv.data.model.association.AccountPersonAssociation;
 import com.yannic.rdv.data.model.type.EventStatus;
 import com.yannic.rdv.data.repository.AccountRepository;
 import com.yannic.rdv.data.repository.EventRepository;
@@ -63,6 +69,52 @@ public abstract class AbstractRestControllerTest {
     	event.setEndDate(EVENT_END_DATE);
     	event.setStatus(EventStatus.AVAILABLE);
     	return event;
+    }
+    
+    public static final long PERSON_ID = 20;
+    
+    public Person getSinglePersonTest() {
+    	Person person = new Person();
+    	person.setPersonId(PERSON_ID);
+    	person.setOrganizer(getSingleOrganizerTest());
+    	return person;
+    }
+    
+    public static final long ORGANIZER_ID = 30;
+    
+    public Organizer getSingleOrganizerTest() {
+    	Organizer organizer = new Organizer();
+    	organizer.setOrganizerId(ORGANIZER_ID);
+    	return organizer;
+    }
+    
+    public static final long LOCATION_ID = 40;
+    
+    public Location getSingleLocationTest() {
+    	Location location = new Location();
+    	location.setLocationId(LOCATION_ID);
+    	location.setOrganizer(getSingleOrganizerTest());
+    	return location;
+    }
+    
+    public static final long ACCOUNT_ID = 50;
+    
+    public Account getSingleAccountTest() {
+    	Account account = new Account();
+    	account.setAccountId(ACCOUNT_ID);
+    	account.setAccountPersonAssociations(Collections.singletonList(getSingleAccountPersonAssociationTest()));
+    	return account;
+    }
+    
+    public static final long ACCOUNT__PERSON_ASSOCIATION_ID = 60;
+    
+    public AccountPersonAssociation getSingleAccountPersonAssociationTest() {
+    	AccountPersonAssociation accountPersonAssociation = new AccountPersonAssociation();
+    	accountPersonAssociation.setAccountPersonAssociationId(ACCOUNT__PERSON_ASSOCIATION_ID);
+    	accountPersonAssociation.setAccount(getSingleAccountTest());
+    	accountPersonAssociation.setPerson(getSinglePersonTest());
+    	return accountPersonAssociation;
+    	
     }
 
 }

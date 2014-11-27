@@ -29,6 +29,7 @@ import com.yannic.rdv.rest.requestparam.EventBookingCode;
 import com.yannic.rdv.rest.resourcesupport.EventResource;
 import com.yannic.rdv.rest.resourcesupport.EventSearchResource;
 import com.yannic.rdv.rest.resourcesupport.EventSearchResource.EventSearchType;
+import com.yannic.rdv.rest.resourcesupport.ListEventResource;
 
 @RestController
 @Transactional
@@ -49,7 +50,7 @@ public class EventCtrl extends BaseCtrl {
     }
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-    public List<EventResource> listAllEvents(@RequestParam String by, @RequestParam Long id) {
+    public ListEventResource listAllEvents(@RequestParam String by, @RequestParam Long id) {
 		
 		if (EventSearchType.PERSON.getSearchBy().equals(by)) {
 			Person person = personRepository.findOne(id);
@@ -72,7 +73,7 @@ public class EventCtrl extends BaseCtrl {
 					eventResource.addBookingCode(eventBookingCodeFormatter.print(code, LocaleContextHolder.getLocale()));
 				}
 			}
-			return listRes;
+			return new ListEventResource(listRes);
 			
 			
 		}
