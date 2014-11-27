@@ -3,6 +3,7 @@ package com.yannic.rdv.rest;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,7 +20,9 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.test.web.servlet.MvcResult;
 
+import com.jayway.jsonpath.JsonPath;
 import com.yannic.rdv.data.model.Event;
 import com.yannic.rdv.data.model.Organizer;
 import com.yannic.rdv.data.model.Person;
@@ -27,6 +30,8 @@ import com.yannic.rdv.data.model.type.EventStatus;
 import com.yannic.rdv.rest.resourcesupport.EventSearchResource.EventSearchType;
 
 public class EventBookingTest extends AbstractRestControllerTest {
+	
+	private String bookingEventUrl;
 	
 	@Before
 	public void setupRepositories() {
@@ -59,12 +64,36 @@ public class EventBookingTest extends AbstractRestControllerTest {
 	
 	@Test
 	public void should_get_json_available_event_when_searching_by_person() throws Exception {
-		mockMvc.perform(get("/api/events/search?by={by}&id={person_id}", EventSearchType.PERSON.getSearchBy(), PERSON_ID))
+		MvcResult result = mockMvc.perform(get("/api/events/search?by={by}&id={person_id}", EventSearchType.PERSON.getSearchBy(), PERSON_ID))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaTypes.HAL_JSON))
-        .andExpect(jsonPath("$.list[0].event.status").value(EventStatus.AVAILABLE.toString()));
+        .andExpect(jsonPath("$.list[0].event.status").value(EventStatus.AVAILABLE.toString())).andReturn();
+		
+		bookingEventUrl = JsonPath.read(result.getResponse().getContentAsString(), "$.list[0]._links['rdv:bookEvent'].href");
+		bookingEventUrl = bookingEventUrl.replace("http://localhost", "");
+		Assert.assertTrue(bookingEventUrl.contains("/book"));
+		
 	}
 	
+	@Test
+	public void should_book_event_when_posting_to_booking_event_url() throws Exception {
+		if (bookingEventUrl == null) {
+			should_get_json_available_event_when_searching_by_person();
+		}
+		
+		mockMvc.perform(post(bookingEventUrl))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaTypes.HAL_JSON))
+        .andExpect(jsonPath("$.event.status").value(EventStatus.FULL.toString()));
+		
+	}
+	
+	
+	
+	/**
+	 * Create a mockito-compatible list of events.
+	 * See http://stackoverflow.com/questions/7366237/mockito-stubbing-methods-that-return-type-with-bounded-wild-cards 
+	 */
 	private <N extends Event> Answer<List<N>> setupDummyListAnswer(N... values) {
 	    final List<N> someList = new ArrayList<N>();
 
