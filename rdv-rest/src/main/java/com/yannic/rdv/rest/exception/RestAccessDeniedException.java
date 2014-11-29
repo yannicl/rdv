@@ -17,13 +17,18 @@ public class RestAccessDeniedException extends AccessDeniedException {
 	
 	private static final String WRONG_KEY_MSG = "The provided key has the correct format and was correctly processed but was rejected because " + 
 	"this key does not correspond to any existing account.";
+	
+	private static final String NO_RESOURCE_ACCESS_MSG = "Access denied to the requested resource. " + 
+	"Note that access to specific resource using self links is not permitted for regular user. Use the search relation to navigate through resources.";
 
 	@JsonFormat(shape= JsonFormat.Shape.OBJECT)
 	public enum AccessDeniedCause {
 		NO_KEY			(401, "E_SEC_001", "No API Key provided", NO_KEY_MSG, ""),
 		ILLEGAL_KEY		(403, "E_SEC_002", "Illegal API Key", ILLEGAL_KEY_MSG, ""),
 		WRONG_KEY		(403, "E_SEC_003", "Wrong API Key", WRONG_KEY_MSG, ""),
-		EXPIRED_KEY		(403, "E_SEC_004", "Expired API KEY", "RFU", "");
+		EXPIRED_KEY		(403, "E_SEC_004", "Expired API KEY", "RFU", ""),
+		NO_RESOURCE_ACCESS(403, "E_SEC_005", "Access Denied", NO_RESOURCE_ACCESS_MSG, "");
+		
 		
 		private int httpStatusCode;
 		private String errorCode;

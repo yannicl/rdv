@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -42,8 +42,8 @@ public class EventBookingTest extends AbstractRestControllerTest {
 		when(((eventRepository.findByOrganizerAndStatusAndStartDateGreaterThan(
 				any(Organizer.class), 
 				any(EventStatus.class), 
-				any(Date.class), 
-				any(Pageable.class)))))
+				any(Date.class),
+				any(PageRequest.class)))))
 				.thenAnswer(setupDummyListAnswer(event));
 	}
 	
@@ -82,9 +82,7 @@ public class EventBookingTest extends AbstractRestControllerTest {
 		}
 		
 		mockMvc.perform(post(bookingEventUrl))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaTypes.HAL_JSON))
-        .andExpect(jsonPath("$.event.status").value(EventStatus.FULL.toString()));
+        .andExpect(status().isNoContent());
 		
 	}
 	

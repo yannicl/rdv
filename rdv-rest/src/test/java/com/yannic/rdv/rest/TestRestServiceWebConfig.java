@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableSpringDataWebSupport
 @EnableHypermediaSupport(type = { HypermediaType.HAL })
 @ComponentScan(basePackages = {
-        "com.yannic.rdv.rest.controller", "com.yannic.rdv.rest.formatter" 
+        "com.yannic.rdv.rest.controller", "com.yannic.rdv.rest.formatter", "com.yannic.rdv.rest.service" 
 })
 public class TestRestServiceWebConfig extends WebMvcConfigurerAdapter {
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,7 @@ public class PersonCtrl extends BaseCtrl {
     public List<PersonResource> listAllPersons(@RequestParam String by) {
 		
 		if (PersonSearchType.ACCOUNT.getSearchBy().equals(by)) {
-			Account account = accountRepository.findOne(((Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccountId());
+			Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			List<PersonResource> list = new ArrayList<PersonResource>();
 			for(AccountPersonAssociation association : account.getAccountPersonAssociations()) {
 				list.add(new PersonResource(association.getPerson()));
@@ -51,6 +52,7 @@ public class PersonCtrl extends BaseCtrl {
 	
 	
 	@RequestMapping(value="/{personId}", method=RequestMethod.GET)
+	@PreAuthorize("denyAll")
     public PersonResource getPerson(@PathVariable Long personId) {
 		
 		Person person = personRepository.findOne(personId);
