@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 import com.yannic.rdv.data.model.type.EventStatus;
 
@@ -22,6 +23,10 @@ public class Event {
 	@Id
 	@Column(name = "event_id")
 	private Long eventId;
+	
+	@Version
+	@Column(name = "version")
+	private Long version = 0L;
 	
 	@Column(name = "start_date")
 	@Temporal(TemporalType.TIMESTAMP)
