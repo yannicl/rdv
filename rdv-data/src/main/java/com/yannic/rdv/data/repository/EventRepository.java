@@ -9,12 +9,16 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.yannic.rdv.data.model.Event;
 import com.yannic.rdv.data.model.Organizer;
+import com.yannic.rdv.data.model.Person;
 import com.yannic.rdv.data.model.type.EventStatus;
 
 @RepositoryRestResource(exported = false)
 public interface EventRepository extends JpaRepository<Event, Long>{
 
 	List<Event> findByOrganizer(Organizer organizer);
+
+	List<Event> findByOrganizerAndStatusAndStartDateGreaterThan(Organizer organizer, EventStatus status, Date startDate, Pageable page);
 	
-	List<Event> findByOrganizerAndStatusAndStartDateGreaterThan(Organizer organizer, EventStatus status, Date startDate, Pageable pageable);
+	List<Event> findByAttendeeAndStatus(Person person, EventStatus status);
+	
 }
