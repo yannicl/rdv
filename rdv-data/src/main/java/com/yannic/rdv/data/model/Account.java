@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
@@ -43,7 +44,7 @@ public class Account {
 	@Enumerated(EnumType.STRING)
 	private LoginMethod method;
 	
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 		name = "account_person",
 		joinColumns={ @JoinColumn(name="account_id", referencedColumnName="account_id") },
