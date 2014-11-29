@@ -5,14 +5,14 @@
     <accounts account_id="1" username="yannicl" password="" salt="" last_login_date="2014-11-10 22:24:00" api_key="AAAA" method="USERNAME_PASSWORD_MD5" />
     <account_person account_person_id="5" account_id="1" person_id="4" relation="CHILD" />
 	<locations location_id="3" street_address="1 rue de l'Eglise" postal_code="H0H 0H0" address_country="CANADA" organizer_id="0" />
-    <events event_id="10" start_date="2100-11-10 09:00:00" end_date="2100-11-10 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="11" start_date="2100-11-11 09:00:00" end_date="2100-11-11 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="12" start_date="2100-11-12 09:00:00" end_date="2100-11-12 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="13" start_date="2100-11-13 09:00:00" end_date="2100-11-13 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="14" start_date="2100-11-14 09:00:00" end_date="2100-11-14 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="15" start_date="2100-11-15 09:00:00" end_date="2100-11-15 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="16" start_date="2100-11-16 09:00:00" end_date="2100-11-16 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="17" start_date="2100-11-17 09:00:00" end_date="2100-11-17 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="18" start_date="2100-11-18 09:00:00" end_date="2100-11-18 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
-    <events event_id="19" start_date="2100-11-19 09:00:00" end_date="2100-11-19 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />     
+    <events event_id="10" version="0" start_date="2100-11-10 09:00:00" end_date="2100-11-10 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="11" version="0" start_date="2100-11-11 09:00:00" end_date="2100-11-11 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="12" version="0" start_date="2100-11-12 09:00:00" end_date="2100-11-12 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="13" version="0" start_date="2100-11-13 09:00:00" end_date="2100-11-13 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="14" version="0" start_date="2100-11-14 09:00:00" end_date="2100-11-14 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="15" version="0" start_date="2100-11-15 09:00:00" end_date="2100-11-15 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="16" version="0" start_date="2100-11-16 09:00:00" end_date="2100-11-16 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="17" version="0" start_date="2100-11-17 09:00:00" end_date="2100-11-17 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="18" version="0" start_date="2100-11-18 09:00:00" end_date="2100-11-18 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />
+    <events event_id="19" version="0" start_date="2100-11-19 09:00:00" end_date="2100-11-19 09:30:00" period="1" status="AVAILABLE" organizer_id="0" location_id="3" />     
 </dataset>
