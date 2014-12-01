@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 import com.yannic.rdv.data.model.Account;
 import com.yannic.rdv.data.model.Event;
 import com.yannic.rdv.data.model.association.AccountPersonAssociation;
-import com.yannic.rdv.rest.exception.RestConflictException;
-import com.yannic.rdv.rest.exception.RestConflictException.ConflictCause;
 
 @Component("eventSM")
 public class EventSecurityManager extends BaseSecurityManager {
@@ -29,7 +27,7 @@ public class EventSecurityManager extends BaseSecurityManager {
 		
 		if (event.getAttendee() == null) {
 			LOG.warn(String.format("Account %s tried to cancel an available event.", account.getAccountId()));
-			throw new RestConflictException(ConflictCause.CONFLICT_EVENT_NOT_BOOKED);
+			return false;
 		}
 		
 		

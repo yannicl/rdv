@@ -50,7 +50,7 @@ public class EventCtrl extends BaseCtrl {
 	@RequestMapping(value="", method=RequestMethod.GET)
     public List<EventSearchResource> listEventSearch() {
 		List<EventSearchResource> list = new ArrayList<EventSearchResource>();
-		Account account = accountRepository.findOne(((Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccountId());
+		Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		for(AccountPersonAssociation association : account.getAccountPersonAssociations()) {
 			list.add(new EventSearchResource(EventSearchType.PERSON, association.getPerson().getPersonId()));
 		}
@@ -93,6 +93,7 @@ public class EventCtrl extends BaseCtrl {
 	
 	@RequestMapping(value="/{eventId}/book", method=RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	//No need for @PreAuthorize as the code is used as authorization
     public EventResource bookEvent(@PathVariable Long eventId, @RequestParam String code) throws ParseException {
 		
 		EventBookingCode eventBookingCode = eventBookingCodeFormatter.parse(code, LocaleContextHolder.getLocale());
