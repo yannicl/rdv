@@ -5,6 +5,7 @@
     xmlns:jpa="http://www.springframework.org/schema/data/jpa"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jee="http://www.springframework.org/schema/jee"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -15,19 +16,16 @@
     	http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-2.5.xsd
 		http://www.springframework.org/schema/tx 
-      	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+      	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+      	http://www.springframework.org/schema/jee
+      	http://www.springframework.org/schema/jee/spring-jee-3.2.xsd">
 
 	<context:component-scan base-package="com.yannic.rdv" />
     <jpa:repositories base-package="com.yannic.rdv.data.repository" />
     <tx:annotation-driven />
-    
-    <bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/spring_test" />
-		<property name="username" value="spring_test" />
-		<property name="password" value="spring_test" />
-	</bean>
+
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/rdvDataSource"
+		expected-type="javax.sql.DataSource" />
 	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
       <property name="dataSource" ref="dataSource" />
