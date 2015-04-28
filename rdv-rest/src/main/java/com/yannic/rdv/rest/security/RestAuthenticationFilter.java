@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.yannic.rdv.data.model.Account;
 import com.yannic.rdv.data.repository.AccountRepository;
 import com.yannic.rdv.rest.exception.RestAccessDeniedException;
@@ -30,48 +31,40 @@ public class RestAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	private static final Logger LOG = LoggerFactory.getLogger(RestAuthenticationFilter.class);
 	
 	public static final String HEADER_SECURITY_API_KEY = "X-API-KEY"; 
-	public static final int API_KEY_LENGTH = 4;
+	public static final int API_KEY_LENGTH = 26;
+	private ObjectWriter accessDeniedCauseObjectWriter;
 	
 	private AccountRepository accountRepository;
-	private ObjectMapper mapper = new ObjectMapper();
 
-
-	public RestAuthenticationFilter() {
-		super(new RequestMatcher() {
-
-			@Override
-			public boolean matches(HttpServletRequest request) {
-				return false;
-			}
-			
-		});
+	public RestAuthenticationFilter(RequestMatcher requestMatcher) {
+		super(requestMatcher);
+		ObjectMapper objectMapper = new ObjectMapper();
+		accessDeniedCauseObjectWriter = objectMapper.writerWithType(AccessDeniedCause.class);
 	}
-
+	
+	
+	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
 		try {
-			if (SecurityContextHolder.getContext().getAuthentication() == null) {
-				SecurityContextHolder.getContext().setAuthentication(
-						attemptAuthentication((HttpServletRequest) req, (HttpServletResponse) res));
-			}
-		} catch (RestAccessDeniedException rade) {
-			LOG.warn("Exiting with an error cause due to " + rade.toString());
+			super.doFilter(req, res, chain);
+		} catch(RestAccessDeniedException e) {
 			HttpServletResponse response = (HttpServletResponse) res;
-			response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
-			response.setStatus(rade.getAccessDeniedCause().getHttpStatusCode());
-			mapper.writeValue(response.getWriter(), rade.getAccessDeniedCause());
+			response.setStatus(e.getAccessDeniedCause().getStatus());
+			response.setContentType("application/json");
+			accessDeniedCauseObjectWriter.writeValue(response.getOutputStream(), e.getAccessDeniedCause());
 			return;
 		}
-		super.doFilter(req, res, chain);
 	}
+
 
 
 	/**
 	 * Attempt to authenticate request - basically just pass over to another method to authenticate request headers 
 	 */
-	@Override public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-		LOG.info("attemptAuthentication...");
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+		LOG.info("attemptAuthentication... for " + ((HttpServletRequest) request).getRequestURI());
 		String apiKey = request.getHeader(HEADER_SECURITY_API_KEY);
 
 		if (apiKey == null) {
@@ -86,7 +79,27 @@ public class RestAuthenticationFilter extends AbstractAuthenticationProcessingFi
 		Authentication authenticate = getAuthenticationManager().authenticate(userAuthenticationToken);
 
 		return authenticate;
+		
 	}
+	
+	@Override
+    protected final void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException
+    {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Authentication success. Updating SecurityContextHolder to contain: " + authResult);
+        }
+
+        SecurityContextHolder.getContext().setAuthentication(authResult);
+
+        if (this.eventPublisher != null) {
+            eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(authResult, this.getClass()));
+        }
+        
+        chain.doFilter(request, response);
+    }
+
+
+	
 
 
 	/**

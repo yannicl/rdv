@@ -17,11 +17,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.yannic.rdv.data.model.association.AccountPersonAssociation;
 import com.yannic.rdv.data.model.type.LoginMethod;
 
 @Entity
-@Table(indexes = {@Index(columnList = "api_key", name="api_key_index", unique=true)}, name = "accounts")
+@Table(indexes = {@Index(columnList = "api_key", name="api_key_index", unique=true),
+				  @Index(columnList = "username", name="username_index", unique=true)}, name = "accounts")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Account {
 	
 	@Id

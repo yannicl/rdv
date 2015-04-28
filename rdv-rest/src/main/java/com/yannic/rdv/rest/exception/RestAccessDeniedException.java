@@ -3,6 +3,8 @@ package com.yannic.rdv.rest.exception;
 import org.springframework.security.access.AccessDeniedException;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.yannic.rdv.rest.security.RestAuthenticationFilter;
 
 public class RestAccessDeniedException extends AccessDeniedException {
@@ -19,9 +21,10 @@ public class RestAccessDeniedException extends AccessDeniedException {
 	"this key does not correspond to any existing account.";
 	
 	private static final String NO_RESOURCE_ACCESS_MSG = "Access denied to the requested resource. " + 
-	"Note that access to specific resource using self links is not permitted for regular user. Use the search relation to navigate through resources.";
+	"Note that access to specific resource using self links is not permitted for regular user. Use the rdv-prefixed (rdv:) relation to navigate through resources.";
 
 	@JsonFormat(shape= JsonFormat.Shape.OBJECT)
+	@JsonPropertyOrder({"timestamp"})
 	public enum AccessDeniedCause {
 		NO_KEY			(401, "E_SEC_001", "No API Key provided", NO_KEY_MSG, ""),
 		ILLEGAL_KEY		(403, "E_SEC_002", "Illegal API Key", ILLEGAL_KEY_MSG, ""),
@@ -29,27 +32,31 @@ public class RestAccessDeniedException extends AccessDeniedException {
 		EXPIRED_KEY		(403, "E_SEC_004", "Expired API KEY", "RFU", ""),
 		NO_RESOURCE_ACCESS(403, "E_SEC_005", "Access Denied", NO_RESOURCE_ACCESS_MSG, "");
 		
-		
-		private int httpStatusCode;
-		private String errorCode;
+		private int status;
+		private String error;
 		private String message;
 		private String developperMessage;
 		private String moreInfo;
 		
-		private AccessDeniedCause(int httpStatusCode, String errorCode, String message, String developperMessage, String moreInfo) {
-			this.httpStatusCode = httpStatusCode;
-			this.errorCode = errorCode;
+		private AccessDeniedCause(int status, String error, String message, String developperMessage, String moreInfo) {
+			this.status = status;
+			this.error = error;
 			this.message = message;
 			this.developperMessage = developperMessage;
 			this.moreInfo = moreInfo;
 		}
-
-		public int getHttpStatusCode() {
-			return httpStatusCode;
+		
+		@JsonProperty
+		public long getTimestamp() {
+			return System.currentTimeMillis();
 		}
 
-		public String getErrorCode() {
-			return errorCode;
+		public int getStatus() {
+			return status;
+		}
+
+		public String getError() {
+			return error;
 		}
 
 		public String getMessage() {

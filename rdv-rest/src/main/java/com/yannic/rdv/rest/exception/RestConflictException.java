@@ -1,6 +1,8 @@
 package com.yannic.rdv.rest.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class RestConflictException extends RuntimeException {
 	
@@ -12,31 +14,37 @@ public class RestConflictException extends RuntimeException {
 	
 	
 	@JsonFormat(shape= JsonFormat.Shape.OBJECT)
+	@JsonPropertyOrder({"timestamp"})
 	public enum ConflictCause {
 		
 		CONFLICT_EVENT_NOT_AVAILABLE(409, "E_CON_001", "Conflict", CONFLICT_EVENT_NOT_AVAILABLE_MSG, ""),
 		CONFLICT_EVENT_NOT_BOOKED(409, "E_CON_002", "Conflict", CONFLICT_EVENT_NOT_BOOKED_MSG, "");
 		
-		private int httpStatusCode;
-		private String errorCode;
+		private int status;
+		private String error;
 		private String message;
 		private String developperMessage;
 		private String moreInfo;
 		
-		private ConflictCause(int httpStatusCode, String errorCode, String message, String developperMessage, String moreInfo) {
-			this.httpStatusCode = httpStatusCode;
-			this.errorCode = errorCode;
+		private ConflictCause(int status, String error, String message, String developperMessage, String moreInfo) {
+			this.status = status;
+			this.error = error;
 			this.message = message;
 			this.developperMessage = developperMessage;
 			this.moreInfo = moreInfo;
 		}
-
-		public int getHttpStatusCode() {
-			return httpStatusCode;
+		
+		@JsonProperty
+		public long getTimestamp() {
+			return System.currentTimeMillis();
 		}
 
-		public String getErrorCode() {
-			return errorCode;
+		public int getStatus() {
+			return status;
+		}
+
+		public String getError() {
+			return error;
 		}
 
 		public String getMessage() {

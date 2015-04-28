@@ -18,6 +18,7 @@ import com.yannic.rdv.data.model.Person;
 import com.yannic.rdv.data.model.association.AccountPersonAssociation;
 import com.yannic.rdv.rest.exception.RestBadRequestException;
 import com.yannic.rdv.rest.exception.RestBadRequestException.BadRequestCause;
+import com.yannic.rdv.rest.resourcesupport.ListPersonResource;
 import com.yannic.rdv.rest.resourcesupport.PersonResource;
 import com.yannic.rdv.rest.resourcesupport.PersonSearchResource;
 import com.yannic.rdv.rest.resourcesupport.PersonSearchResource.PersonSearchType;
@@ -35,7 +36,7 @@ public class PersonCtrl extends BaseCtrl {
     }
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-    public List<PersonResource> listAllPersons(@RequestParam String by) {
+    public ListPersonResource listAllPersons(@RequestParam String by) {
 		
 		if (PersonSearchType.ACCOUNT.getSearchBy().equals(by)) {
 			Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -43,7 +44,7 @@ public class PersonCtrl extends BaseCtrl {
 			for(AccountPersonAssociation association : account.getAccountPersonAssociations()) {
 				list.add(new PersonResource(association.getPerson()));
 			}
-			return list;
+			return new ListPersonResource(list);
 		}
 		
 		throw new RestBadRequestException(BadRequestCause.BAD_PARAMETER_VALUE_BY);

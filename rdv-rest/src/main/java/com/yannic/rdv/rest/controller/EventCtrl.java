@@ -60,7 +60,7 @@ public class EventCtrl extends BaseCtrl {
 	
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-    public ListEventResource listAllEvents(@RequestParam String by, @RequestParam Long id) {
+    public ListEventResource listAllEvents(@RequestParam String by, @RequestParam(required=false, defaultValue="0") Long id) {
 		
 		if (EventSearchType.ACCOUNT.getSearchBy().equals(by)) {
 			

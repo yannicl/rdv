@@ -9,5 +9,7 @@ import com.yannic.rdv.data.model.Account;
 public interface AccountRepository extends JpaRepository<Account, Long>{
 	
 	Account findByApiKey(String apiKey);
+	
+	Account findByUsername(String username);
 
 }

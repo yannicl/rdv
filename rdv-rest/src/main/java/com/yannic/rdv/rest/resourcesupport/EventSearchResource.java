@@ -10,10 +10,10 @@ import com.yannic.rdv.rest.controller.EventCtrl;
 public class EventSearchResource extends ResourceSupport {
 	
 	public enum EventSearchType {
-		ACCOUNT("rdv:searchByAccount", "account"),
-		PERSON("rdv:searchByPerson", "person"),
-		ORGANIZER("rdv:searchAsOrganizer", "organizer"),
-		ALL("rdv:searchAsAdmin", "admin");
+		ACCOUNT("rdv:searchEventByAccount", "account"),
+		PERSON("rdv:searchEventByPerson", "person"),
+		ORGANIZER("rdv:searchEventAsOrganizer", "organizer"),
+		ALL("rdv:searchEventAsAdmin", "admin");
 		
 		private final String rel;
 		private final String searchBy;

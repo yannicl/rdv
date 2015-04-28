@@ -10,9 +10,9 @@ import com.yannic.rdv.rest.controller.PersonCtrl;
 public class PersonSearchResource extends ResourceSupport {
 	
 	public enum PersonSearchType {
-		ACCOUNT("search", "account"),
-		ORGANIZER("search", "organizer"),
-		ALL("search", "admin");
+		ACCOUNT("rdv:searchPersonByAccount", "account"),
+		ORGANIZER("rdv:searchPersonAsOrganizer", "organizer"),
+		ALL("rdv:searchPersonAsAdmin", "admin");
 		
 		private final String rel;
 		private final String searchBy;

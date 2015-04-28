@@ -6,18 +6,18 @@ import org.springframework.hateoas.ResourceSupport;
 
 public class ListEventResource extends ResourceSupport {
 	
-	private List<EventResource> list;
+	private List<EventResource> events;
 	
 	public ListEventResource(List<EventResource> listEvent) {
 		this.setList(listEvent);
 	}
 
-	public List<EventResource> getList() {
-		return list;
+	public List<EventResource> getEvents() {
+		return events;
 	}
 
 	public void setList(List<EventResource> listEvent) {
-		this.list = listEvent;
+		this.events = listEvent;
 	}
 
 }

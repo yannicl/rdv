@@ -102,16 +102,16 @@ public abstract class AbstractRestControllerTest {
     public Account getSingleAccountTest() {
     	Account account = new Account();
     	account.setAccountId(ACCOUNT_ID);
-    	account.setAccountPersonAssociations(Collections.singletonList(getSingleAccountPersonAssociationTest()));
+    	account.setAccountPersonAssociations(Collections.singletonList(getSingleAccountPersonAssociationTest(account)));
     	return account;
     }
     
     public static final long ACCOUNT__PERSON_ASSOCIATION_ID = 60;
     
-    public AccountPersonAssociation getSingleAccountPersonAssociationTest() {
+    public AccountPersonAssociation getSingleAccountPersonAssociationTest(Account account) {
     	AccountPersonAssociation accountPersonAssociation = new AccountPersonAssociation();
     	accountPersonAssociation.setAccountPersonAssociationId(ACCOUNT__PERSON_ASSOCIATION_ID);
-    	accountPersonAssociation.setAccount(getSingleAccountTest());
+    	accountPersonAssociation.setAccount(account);
     	accountPersonAssociation.setPerson(getSinglePersonTest());
     	return accountPersonAssociation;
     	
