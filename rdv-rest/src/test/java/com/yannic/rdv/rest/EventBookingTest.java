@@ -67,9 +67,9 @@ public class EventBookingTest extends AbstractRestControllerTest {
 		MvcResult result = mockMvc.perform(get("/api/events/search?by={by}&id={person_id}", EventSearchType.PERSON.getSearchBy(), PERSON_ID))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaTypes.HAL_JSON))
-        .andExpect(jsonPath("$.list[0].event.status").value(EventStatus.AVAILABLE.toString())).andReturn();
+        .andExpect(jsonPath("$.events[0].event.status").value(EventStatus.AVAILABLE.toString())).andReturn();
 		
-		bookingEventUrl = JsonPath.read(result.getResponse().getContentAsString(), "$.list[0]._links['rdv:bookEvent'].href");
+		bookingEventUrl = JsonPath.read(result.getResponse().getContentAsString(), "$.events[0]._links['rdv:bookEvent'].href");
 		bookingEventUrl = bookingEventUrl.replace("http://localhost", "");
 		Assert.assertTrue(bookingEventUrl.contains("/book"));
 		
