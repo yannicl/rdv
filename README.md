@@ -7,7 +7,7 @@ This project will contain several parts :
 
 - rdv-data : application objects and repositories
 - rdv-rest : controllers and services 
-- rdv-front : front-end consuming the rest services
+- rdv-web : web front-end consuming the rest services. This is an AngularJS application.
 
 This project is ongoing and will probably never completely ends as its main target 
 is to explore technologies and apply them to a real business problem.
@@ -24,3 +24,4 @@ Technology list
 - DBUnit
 - Hibernate
 - MySQL
+- AngularJS
