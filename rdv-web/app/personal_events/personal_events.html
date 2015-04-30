@@ -1,0 +1,32 @@
+<div>
+	<div class="personal-events full-events" ng-show="fullEvents.length">
+		<h2>
+		{{ fullEvents.length, plural,
+                one {Rendez-vous r&eacute;serv&eacute;}
+                other {Rendez-vous r&eacute;serv&eacute;s}
+        }}
+		</h2>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="event in fullEvents">
+				<h4 class="list-group-item-heading">{{event.event.startDate | date:'EEEE d MMMM &agrave; H:mm'}} chez {{event.event.organizer.name}} &agrave; {{event.event.location.name}}
+				<a ng-click="cancelEvent(event)"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+				</h4>
+			</li>
+		</ul>
+	</div>
+	<div class="personal-events full-events" ng-show="availableEvents.length">
+		<h2>
+		{{ availableEvents.length, plural,
+                one {Rendez-vous disponible}
+                other {Rendez-vous disponibles}
+        }}
+		</h2>
+		<ul class="list-group">
+			<li href="#" class="list-group-item" ng-repeat="event in availableEvents">
+				<h4 class="list-group-item-heading">{{event.event.startDate | date:'EEEE d MMMM &agrave; H:mm'}}
+				<a ng-click="cancelEvent(event)"><span class="glyphicon glyphicon-ok pull-right"></span></a>
+				</h4>
+			</li>
+		</ul>
+	</div>
+</div>

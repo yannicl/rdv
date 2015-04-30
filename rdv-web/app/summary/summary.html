@@ -1,0 +1,21 @@
+<div>
+	<div class="summary">
+		<div class="list-group">
+			<a href="#/personal_events/{{person.person.personId}}" class="list-group-item" ng-repeat="person in managedPeople">
+				<h4 class="list-group-item-heading">{{person.person.givenName}} {{person.person.familyName}}<span class="glyphicon glyphicon-menu-right pull-right"></span></h4>
+				<p class="list-group-item-text" ng-show="person.events.length === 0">
+					Aucun rendez-vous prochainement
+				</p>
+				<p class="list-group-item-text" ng-hide="person.events.length === 0">
+					Rendez-vous chez {{person.events[0].event.organizer.name}} {{person.events[0].event.startDate | date:'EEEE d MMMM'}}
+				</p>
+				<span class="badge" ng-show="person.events.length > 1">
+				{{ managedPeople.length, plural, offset:1
+                one {+ 1 autre}
+                other {+ # autres}
+            	}}
+				</span>
+			</a>
+		</div>
+	</div>
+</div>

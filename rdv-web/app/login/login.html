@@ -1,0 +1,10 @@
+<form class="form-signin">
+  <h2 class="form-signin-heading">Connectez-vous pour g&eacute;rer vos rendez-vous</h2>
+  <label for="usernameInput" class="sr-only">Identifiant</label>
+  <input type="text" id="usernameInput" ng-model="formData.username" class="form-control" placeholder="Identifiant" required autofocus>
+  <label for="inputPassword" class="sr-only">Mot de passe</label>
+  <input type="password" id="passwordInput" ng-model="formData.password" class="form-control" placeholder="Mot de passe" required>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="doLogin()">Connexion</button>
+</form>
+
+<p>Compte de test : (Yannic / MotdePasse)</p>
