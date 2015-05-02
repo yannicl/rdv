@@ -41,6 +41,7 @@ angular.module('rdvApp.api', ['ngStorage'])
 			.success(function (data) {
 				$http.defaults.headers.common['X-API-KEY'] = data.account.apiKey;
 				$localStorage.apiKey = data.account.apiKey;
+				console.log('Api key: ' + data.account.apiKey);
 				rdvCache.put('account', data);
 				deferred.resolve(data);
 			}).error(function() {deferred.reject('no data');});
