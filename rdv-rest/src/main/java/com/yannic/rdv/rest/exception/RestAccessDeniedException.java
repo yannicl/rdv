@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.yannic.rdv.rest.security.RestAuthenticationFilter;
+import com.yannic.rdv.rest.service.AccountService;
 
 public class RestAccessDeniedException extends AccessDeniedException {
 		
@@ -15,7 +16,7 @@ public class RestAccessDeniedException extends AccessDeniedException {
 			" was not present in request headers.";
 	
 	private static final String ILLEGAL_KEY_MSG = "The header " + RestAuthenticationFilter.HEADER_SECURITY_API_KEY + " is present but " + 
-	"the provided value has not the correct length. The value must contains exactly " +  RestAuthenticationFilter.API_KEY_LENGTH + " characters.";
+	"the provided value has not the correct length. The value must contains exactly " +  AccountService.API_KEY_LENGTH + " characters.";
 	
 	private static final String WRONG_KEY_MSG = "The provided key has the correct format and was correctly processed but was rejected because " + 
 	"this key does not correspond to any existing account.";

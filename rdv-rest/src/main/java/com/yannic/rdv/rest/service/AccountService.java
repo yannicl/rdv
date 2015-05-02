@@ -8,10 +8,10 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.yannic.rdv.data.model.Account;
 import com.yannic.rdv.data.model.type.LoginMethod;
@@ -21,8 +21,13 @@ import com.yannic.rdv.rest.exception.LoginFailedException.LoginFailedCause;
 @Service
 public class AccountService extends BaseService {
 	
+	public static final int API_KEY_LENGTH = 26;
+	private static final int RADIX_32 = 32;
+	
 	private static final Logger LOG = LoggerFactory.getLogger(AccountService.class);
+	
 	private SecureRandom secureRandom = new SecureRandom();
+	
 	
 	
 	public void performPasswordAuthentication(Account account, String password) {
@@ -61,7 +66,8 @@ public class AccountService extends BaseService {
 	 * @see http://stackoverflow.com/questions/41107/how-to-generate-a-random-alpha-numeric-string 
 	 */
 	private String nextApiKey() {
-	    return new BigInteger(130, secureRandom).toString(32);
+		String random = new BigInteger(130, secureRandom).toString(RADIX_32); 
+	    return StringUtils.leftPad(random, API_KEY_LENGTH, '0');
 	  }
 
 	private void performPasswordAuthenticationWithMD5Hash(Account account, String password) {

@@ -25,13 +25,13 @@ import com.yannic.rdv.data.model.Account;
 import com.yannic.rdv.data.repository.AccountRepository;
 import com.yannic.rdv.rest.exception.RestAccessDeniedException;
 import com.yannic.rdv.rest.exception.RestAccessDeniedException.AccessDeniedCause;
+import com.yannic.rdv.rest.service.AccountService;
 
 public class RestAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RestAuthenticationFilter.class);
 	
 	public static final String HEADER_SECURITY_API_KEY = "X-API-KEY"; 
-	public static final int API_KEY_LENGTH = 26;
 	private ObjectWriter accessDeniedCauseObjectWriter;
 	
 	private AccountRepository accountRepository;
@@ -70,7 +70,7 @@ public class RestAuthenticationFilter extends AbstractAuthenticationProcessingFi
 		if (apiKey == null) {
 			throw new RestAccessDeniedException(AccessDeniedCause.NO_KEY);
 		}
-		if (apiKey.length() != API_KEY_LENGTH) {
+		if (apiKey.length() != AccountService.API_KEY_LENGTH) {
 			throw new RestAccessDeniedException(AccessDeniedCause.ILLEGAL_KEY);
 		}
 
