@@ -2,6 +2,6 @@ package com.yannic.rdv.data.model.type;
 
 public enum LoginMethod {
 	
-	USERNAME_PASSWORD_MD5
-
+	USERNAME_PASSWORD_MD5,
+	SSO_GOOGLE
 }

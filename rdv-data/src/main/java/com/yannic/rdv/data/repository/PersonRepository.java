@@ -8,4 +8,5 @@ import com.yannic.rdv.data.model.Person;
 @RepositoryRestResource(exported = false)
 public interface PersonRepository extends JpaRepository<Person, Long>{
 
+	Person findOneByCode(String code);
 }

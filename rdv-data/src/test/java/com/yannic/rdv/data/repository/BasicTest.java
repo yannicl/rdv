@@ -38,7 +38,7 @@ public class BasicTest extends BaseTest {
 	
 	@Test
 	public void event_should_be_linked_to_other_objects() {
-		Event event = eventRepository.findOne((long) 2);
+		Event event = eventRepository.findOne((long) 1);
 		
 		Assert.assertNotNull(event.getAttendee());
 		Assert.assertNotNull(event.getLocation());
@@ -48,7 +48,7 @@ public class BasicTest extends BaseTest {
 	@Test
 	public void account_should_be_linked_to_person() {
 		Account account = accountRepository.findOne((long) 1);
-		Person person = personRepository.findOne((long) 4);
+		Person person = personRepository.findOne((long) 1);
 		
 		Assert.assertNotNull(account.getAccountPersonAssociations());
 		Assert.assertEquals(1, account.getAccountPersonAssociations().size());

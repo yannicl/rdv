@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <organizers organizer_id="0" name="Yannic Luyckx" description="Ingénieur"/>
-    <persons person_id="4" organizer_id="0" given_name="Adam" family_name="Schmidt" code="1234-1234-1234-1234-1234" />
-    <accounts account_id="1" username="yannicl" password="" salt="" last_login_date="2014-11-10 22:24:00" api_key="AAAA" method="USERNAME_PASSWORD_MD5" />
-    <account_person account_person_id="5" account_id="1" person_id="4" relation="CHILD" />
-	<locations location_id="3" street_address="1 rue de l'Eglise" postal_code="H0H 0H0" address_country="CANADA" organizer_id="0" />
-    <events event_id="2" start_date="2014-11-10 09:00:00" end_date="2014-11-10 09:30:00" period="1" status="FULL" organizer_id="0" attendee_id="4" location_id="3" />     
+    <organizers organizer_id="1" name="Yannic Luyckx" description="Ingénieur"/>
+    <persons person_id="1" organizer_id="1" given_name="Adam" family_name="Schmidt" code="1234-1234-1234-1234-1234" />
+    <accounts account_id="1" username="Yannic" password="b6f4343848076f381c93be80ff053e94" salt="ABCD" last_login_date="2014-11-10 22:24:00" api_key="AAAA" method="USERNAME_PASSWORD_MD5" />
+    <account_person account_person_id="1" account_id="1" person_id="1" relation="CHILD" />
+	<locations location_id="1" street_address="1 rue de l'Eglise" postal_code="H0H 0H0" address_country="CANADA" organizer_id="1" />
+    <events event_id="1" start_date="2014-11-10 09:00:00" end_date="2014-11-10 09:30:00" period="1" status="FULL" organizer_id="1" attendee_id="1" location_id="1" />     
 </dataset>
