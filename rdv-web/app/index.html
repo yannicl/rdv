@@ -21,11 +21,11 @@
 <link rel="shortcut icon" href="favicon.ico" />
 
 </head>
-<body>
+<body ng-controller="RdvAppCtrl">
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -34,15 +34,17 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Rendez-Vous</a>
+				<a class="navbar-brand" href="#">Rendez-vous</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="#product">About</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="#">Contactez-nous</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" ng-show="username">
 					<li><a href="#logout">Se déconnecter</a></li>
+					<li><a href="#account">{{username}}</a></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -51,7 +53,7 @@
 	</nav>
 
 	<!-- Page Content -->
-	<div class="container">
+	<div class="page-content container">
 		
 		<div class="ng-view"></div>
 		
@@ -79,6 +81,7 @@
   <script src="login/login.js"></script>
   <script src="login/logout.js"></script>
   <script src="summary/summary.js"></script>
+  <script src="person/person.js"></script>
   <script src="personal_events/personal_events.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>

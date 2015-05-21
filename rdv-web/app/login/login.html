@@ -1,10 +1,59 @@
-<form class="form-signin">
-  <h2 class="form-signin-heading">Connectez-vous pour g&eacute;rer vos rendez-vous</h2>
-  <label for="usernameInput" class="sr-only">Identifiant</label>
-  <input type="text" id="usernameInput" ng-model="formData.username" class="form-control" placeholder="Identifiant" required autofocus>
-  <label for="inputPassword" class="sr-only">Mot de passe</label>
-  <input type="password" id="passwordInput" ng-model="formData.password" class="form-control" placeholder="Mot de passe" required>
-  <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="doLogin()">Connexion</button>
-</form>
+<div class="alert alert-danger" role="alert" ng-show="errMsg">
+  <strong>{{errMsg}}</strong>
+</div>
+
+<div class="container">
+    
+    <div class="omb_login">
+    	<h3 class="omb_authTitle">Connectez-vous pour g&eacute;rer vos rendez-vous</a></h3>
+		<div class="row omb_row-sm-offset-3 omb_socialButtons">
+        	<div class="col-xs-4 col-sm-2">
+		        <a href="/rdv-rest/sso/google" class="btn btn-lg btn-block omb_btn-google">
+			        <i class="fa fa-google visible-xs"></i>
+			        <span class="hidden-xs">Google</span>
+		        </a>
+	        </div>	
+		</div>
+
+		<div class="row omb_row-sm-offset-3 omb_loginOr">
+			<div class="col-xs-12 col-sm-6">
+				<hr class="omb_hrOr">
+				<span class="omb_spanOr">ou</span>
+			</div>
+		</div>
+
+		<div class="row omb_row-sm-offset-3">
+			<div class="col-xs-12 col-sm-6">	
+			    <form class="omb_loginForm" action="" autocomplete="off" method="POST">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" id="usernameInput" ng-model="formData.username" class="form-control" placeholder="Identifiant" required autofocus>
+					</div>
+					<span class="help-block"></span>
+										
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+						<input type="password" id="passwordInput" ng-model="formData.password" class="form-control" placeholder="Mot de passe" required>
+					</div>
+                    <span class="help-block"></span>
+
+					<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="doLogin()">Connexion</button>
+				</form>
+			</div>
+    	</div>
+		<!-- <div class="row omb_row-sm-offset-3">
+			<div class="col-xs-12 col-sm-3">
+				<label class="checkbox">
+					<input type="checkbox" value="remember-me">Remember Me
+				</label>
+			</div>
+			<div class="col-xs-12 col-sm-3">
+				<p class="omb_forgotPwd">
+					<a href="#">Forgot password?</a>
+				</p>
+			</div>
+		</div> -->	    	
+	</div>
+</div>
 
 <p>Compte de test : (Yannic / MotdePasse)</p>

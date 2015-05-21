@@ -6,10 +6,17 @@ angular.module('rdvApp', [
   'rdvApp.login',
   'rdvApp.logout',
   'rdvApp.summary',
+  'rdvApp.person',
   'rdvApp.personal_events',
   'rdvApp.version',
   'ngMessageFormat'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
+}])
+
+.controller('RdvAppCtrl', ['$rootScope', function($rootScope) {
+	
+	$rootScope.username = "";
+	
 }]);

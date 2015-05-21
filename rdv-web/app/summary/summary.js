@@ -14,7 +14,7 @@ angular.module('rdvApp.summary', ['ngRoute', 'rdvApp.api'])
 	rdvService.verifyLogin().then(function() {
 		$scope.getListManagedPeople();
 	}, function() {
-		$location.path('/login');
+		$location.path('/logout');
 	});
 	
 	$scope.getListManagedPeople = function() {

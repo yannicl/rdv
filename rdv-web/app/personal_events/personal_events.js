@@ -14,7 +14,7 @@ angular.module('rdvApp.personal_events', ['ngRoute', 'rdvApp.api'])
 	rdvService.verifyLogin().then(function() {
 		$scope.getListEvents();
 	}, function() {
-		$location.path('/login');
+		$location.path('/logout');
 	});
 	
 	$scope.getListEvents = function() {
@@ -48,5 +48,8 @@ angular.module('rdvApp.personal_events', ['ngRoute', 'rdvApp.api'])
 			}).error(function() {
 				// handle error
 			});
+	};
+	$scope.backToSummary = function() {
+		$location.path('/summary');
 	};
 }]);

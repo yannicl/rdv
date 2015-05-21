@@ -3,18 +3,23 @@
 		<div class="list-group">
 			<a href="#/personal_events/{{person.person.personId}}" class="list-group-item" ng-repeat="person in managedPeople">
 				<h4 class="list-group-item-heading">{{person.person.givenName}} {{person.person.familyName}}<span class="glyphicon glyphicon-menu-right pull-right"></span></h4>
-				<p class="list-group-item-text" ng-show="person.events.length === 0">
+				<p>
+				<span class="list-group-item-text" ng-show="person.events.length === 0">
 					Aucun rendez-vous prochainement
-				</p>
-				<p class="list-group-item-text" ng-hide="person.events.length === 0">
+				</span>
+				<span class="list-group-item-text" ng-hide="person.events.length === 0">
 					Rendez-vous chez {{person.events[0].event.organizer.name}} {{person.events[0].event.startDate | date:'EEEE d MMMM'}}
-				</p>
-				<span class="badge" ng-show="person.events.length > 1">
+				</span>
+				<span class="badge pull-right" ng-show="person.events.length > 1">
 				{{ managedPeople.length, plural, offset:1
                 one {+ 1 autre}
                 other {+ # autres}
             	}}
 				</span>
+				</p>
+			</a>
+			<a href="#persons/add" class="list-group-item">
+				<h4 class="list-group-item-heading"><img src="img/adduser.png" style="height:50px"/>Ajouter une personne pour lui r&eacute;server un rendez-vous</h4>	
 			</a>
 		</div>
 	</div>

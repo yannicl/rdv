@@ -1,0 +1,29 @@
+<div class="row col-md-offset-4">
+<div class="col-sm-12 col-md-6">
+
+	<div class="alert alert-danger" role="alert" ng-show="isMsgErrDisplayed()">
+	  <i class="glyphicon glyphicon-warning-sign"></i>&nbsp;<strong>{{errMsg}}</strong>
+	</div>
+
+	<form action="" autocomplete="off" method="POST">
+		<span>Entrer le code de la personne &agrave; ajouter</span>
+		<div class="input-group" ng-class="codeInputValidationClass()">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+			<input type="text" id="codeInput" ng-model="formData.code" class="form-control" placeholder="Code" required autofocus>
+		</div>
+		
+		<span>Qui est cette personne par rapport &agrave; vous ?</span>
+		<select class="form-control" ng-model="formData.relation">
+		  <option value="SAME">Moi-m&ecirc;me</option>
+		  <option value="CHILD">Mon enfant</option>
+		  <option value="PARENT">Mon p&egrave;re ou ma m&egrave;re</option>
+		  <option value="SIBLING">Mon fr&egrave;re ou ma soeur</option>
+		  <option value="OTHER">Autre</option>
+		</select>					
+		<br />
+		<button class="btn btn-lg btn-primary" type="submit" ng-click="addPerson()" ng-disabled="isMsgErrDisplayed()">Ajouter</button>
+		<button class="btn btn-lg btn-default" ng-click="cancel()">Annuler</button>
+	</form>
+</div>
+</div>
+<p>Code de test: 1234-1234-1234-1234-1234</p>
