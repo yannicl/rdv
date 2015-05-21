@@ -2,6 +2,7 @@ package com.yannic.rdv.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yannic.rdv.data.repository.AccountPersonAssociationRepository;
 import com.yannic.rdv.data.repository.AccountRepository;
 import com.yannic.rdv.data.repository.EventRepository;
 import com.yannic.rdv.data.repository.LocationRepository;
@@ -29,5 +30,8 @@ public class BaseCtrl {
 	
 	@Autowired
 	AccountService accountService;
+	
+	@Autowired
+	AccountPersonAssociationRepository accountPersonAssociationRepository;
 
 }

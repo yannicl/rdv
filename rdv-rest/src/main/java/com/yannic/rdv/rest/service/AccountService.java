@@ -17,6 +17,8 @@ import com.yannic.rdv.data.model.Account;
 import com.yannic.rdv.data.model.type.LoginMethod;
 import com.yannic.rdv.rest.exception.LoginFailedException;
 import com.yannic.rdv.rest.exception.LoginFailedException.LoginFailedCause;
+import com.yannic.rdv.rest.sso.SsoException;
+import com.yannic.rdv.rest.sso.UserProfile;
 
 @Service
 public class AccountService extends BaseService {
@@ -41,6 +43,24 @@ public class AccountService extends BaseService {
 		} else {
 			throw new LoginFailedException(LoginFailedCause.LOGIN_FAILED_EXCEPTION_NOT_SUPPORTED_AUTHENTICATION_METHOD);
 		}
+		
+	}
+	
+	public Account handleSsoAuthentication(UserProfile userProfile, LoginMethod loginMethod) throws SsoException {
+		Account account = accountRepository.findByUsername(userProfile.getUsername());
+		
+		if (account == null) {
+			account = new Account();
+			account.setUsername(userProfile.getUsername());
+			account.setMethod(loginMethod);
+			accountRepository.save(account);
+		} else if (! account.getMethod().equals(loginMethod)) {
+			throw new SsoException("not able to login to this account as login method does not match");
+		}
+		
+		generateApiKey(account);
+		
+		return account;
 		
 	}
 	

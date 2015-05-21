@@ -37,6 +37,7 @@
          <props>
             <prop key="hibernate.hbm2ddl.auto">validate</prop>
             <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+			<!-- <prop key="hibernate.show_sql">true</prop> -->
          </props>
       </property>
    </bean>
@@ -46,6 +47,6 @@
    </bean>
    
     
-    <import resource="classpath:/application-context-security.xml"/>
+   <import resource="classpath:/application-context-security.xml"/>
 
 </beans>

@@ -3,8 +3,10 @@ package com.yannic.rdv.rest.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import org.apache.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yannic.rdv.data.model.Account;
 import com.yannic.rdv.data.model.Person;
 import com.yannic.rdv.data.model.association.AccountPersonAssociation;
+import com.yannic.rdv.data.model.type.AccountPersonRelation;
 import com.yannic.rdv.rest.exception.RestBadRequestException;
 import com.yannic.rdv.rest.exception.RestBadRequestException.BadRequestCause;
 import com.yannic.rdv.rest.resourcesupport.ListPersonResource;
@@ -61,5 +64,41 @@ public class PersonCtrl extends BaseCtrl {
         return new PersonResource(person);
     }
 	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	@PreAuthorize("permitAll")
+	public PersonResource addPerson(@RequestParam String code, @RequestParam AccountPersonRelation relation, HttpServletResponse response) {
+		
+		Person person = personRepository.findOneByCode(code);
+					
+		if (person == null) {
+			
+			response.setStatus(HttpStatus.SC_NOT_FOUND); //TODO convert to rest exception
+			return null;
+			
+		} else {
+													
+			Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			// verify that this account does not contain the selected person
+			// if yes, send HTTP CONFLICT
+			for (AccountPersonAssociation association : account.getAccountPersonAssociations()) {
+				if (association.getPerson().getPersonId().equals(person.getPersonId())) {
+					response.setStatus(HttpStatus.SC_CONFLICT); //TODO convert to rest exception
+					return null;
+				}
+			}
+						
+			AccountPersonAssociation association = new AccountPersonAssociation();
+			association.setAccount(account);
+			association.setPerson(person);
+			association.setRelation(relation);
+			
+			accountPersonAssociationRepository.save(association);
+			
+			return new PersonResource(person);
+		}
+				
+	}
+		
 
 }

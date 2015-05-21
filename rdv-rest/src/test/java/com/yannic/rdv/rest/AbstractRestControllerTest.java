@@ -21,6 +21,7 @@ import com.yannic.rdv.data.model.Organizer;
 import com.yannic.rdv.data.model.Person;
 import com.yannic.rdv.data.model.association.AccountPersonAssociation;
 import com.yannic.rdv.data.model.type.EventStatus;
+import com.yannic.rdv.data.repository.AccountPersonAssociationRepository;
 import com.yannic.rdv.data.repository.AccountRepository;
 import com.yannic.rdv.data.repository.EventRepository;
 import com.yannic.rdv.data.repository.LocationRepository;
@@ -51,6 +52,9 @@ public abstract class AbstractRestControllerTest {
 	
 	@Autowired
 	protected OrganizerRepository organizerRepository;
+	
+	@Autowired
+	protected AccountPersonAssociationRepository accountPersonAssociationRepository;
 
     @Before
     public void setup() {
