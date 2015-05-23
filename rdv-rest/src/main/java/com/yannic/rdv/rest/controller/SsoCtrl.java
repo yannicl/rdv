@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
@@ -51,7 +52,7 @@ public class SsoCtrl extends BaseCtrl {
 	GoogleAuthService googleAuthService;
 	
 	@RequestMapping(value="google", method=RequestMethod.GET)
-    public String loginWithGoogle(HttpServletResponse response) {
+    public String loginWithGoogle(HttpServletRequest request, HttpServletResponse response) {
 		
 		InitialContext context;
 		try {
@@ -63,7 +64,7 @@ public class SsoCtrl extends BaseCtrl {
 		
 		
 		try {
-			response.sendRedirect(googleAuthService.buildLoginUrl());
+			response.sendRedirect(googleAuthService.buildLoginUrl(extractBaseUrl(request)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,7 +76,7 @@ public class SsoCtrl extends BaseCtrl {
     }
 	
 	@RequestMapping(value="googlecallback", method=RequestMethod.GET)
-    public void callbackGromGoogle(HttpServletResponse response, @RequestParam(required=false, defaultValue="") String code, @RequestParam(required=false, defaultValue="") String error) throws IOException {
+    public void callbackGromGoogle(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false, defaultValue="") String code, @RequestParam(required=false, defaultValue="") String error) throws IOException {
 		
 		if (StringUtils.isNotEmpty(error)) {
 			LOG.info("User rejected the request on google screen");
@@ -86,7 +87,7 @@ public class SsoCtrl extends BaseCtrl {
 		UserProfile userProfile;
 		
 		try {
-			userProfile = googleAuthService.getUserProfile(code);
+			userProfile = googleAuthService.getUserProfile(code, extractBaseUrl(request));
 		} catch (SsoException e) {
 			LOG.warn("Fail to contact google or invalid code", e);
 			response.sendRedirect("/rdv-web/index.html#login?err=" + E_SSO_002);
@@ -115,7 +116,13 @@ public class SsoCtrl extends BaseCtrl {
 		
     }
 	
-	
+	private String extractBaseUrl(HttpServletRequest request) {
+		String url = request.getRequestURL().toString();
+		String uri = request.getRequestURI();
+		String ctx = request.getContextPath();
+		String base = url.substring(0, url.length() - uri.length()) + ctx;
+		return base;
+	}
 	
 	
 	

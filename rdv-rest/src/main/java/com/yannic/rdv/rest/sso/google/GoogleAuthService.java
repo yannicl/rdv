@@ -43,15 +43,16 @@ public class GoogleAuthService {
 	private String CLIENT_SECRET;	
 
 	/**
-	 * Callback URI that google will redirect to after successful authentication
+	 * URI of controller handling google sso callback
 	 */
-	private static final String CALLBACK_URI = "http://localhost:8080/rdv-rest/sso/googlecallback";
+	private static final String CALLBACK_URI = "/sso/googlecallback";
 
 	// start google authentication constants
 	private static final Collection<String> SCOPE = Arrays.asList("profile;email".split(";"));
 	private static final String USER_INFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
 	
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+	
 	ObjectMapper mapper = new ObjectMapper();
 	
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -74,13 +75,14 @@ public class GoogleAuthService {
 	}
 	
 	/**
-	 * Builds a login URL based on client ID, secret, callback URI, and scope 
+	 * Builds a login URL based on client ID, secret, callback URL, and scope 
+	 * @param baseUrl 
 	 */
-	public String buildLoginUrl() {
+	public String buildLoginUrl(final String baseUrl) {
 		
 		final GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
 		
-		return url.setRedirectUri(CALLBACK_URI).build();
+		return url.setRedirectUri(baseUrl + CALLBACK_URI).build();
 	}
 	
 	/**
@@ -89,11 +91,11 @@ public class GoogleAuthService {
 	 * @param authCode authentication code provided by google
 	 * @throws SsoException 
 	 */
-	public GoogleUserProfile getUserProfile(final String authCode) throws SsoException {
+	public GoogleUserProfile getUserProfile(final String authCode, final String baseUrl) throws SsoException {
 
 		String jsonIdentity;
 		try {
-			GoogleTokenResponse response = flow.newTokenRequest(authCode).setRedirectUri(CALLBACK_URI).execute();
+			GoogleTokenResponse response = flow.newTokenRequest(authCode).setRedirectUri(baseUrl + CALLBACK_URI).execute();
 			Credential credential = flow.createAndStoreCredential(response, null);
 			HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
 			GenericUrl url = new GenericUrl(USER_INFO_URL);
